@@ -253,10 +253,14 @@ namespace BrowserServer
         {
             try
             {
-
-                browser.CaptureScreenshotAsync(CefSharp.DevTools.Page.CaptureScreenshotFormat.Jpeg, 70).ContinueWith(t =>
+                browser.CaptureScreenshotAsync
+                (CefSharp.DevTools.Page.CaptureScreenshotFormat.Jpeg, 70).ContinueWith(t =>
                 {
-                    server.WebSocketServices.Broadcast(t.Result);
+                    try
+                    {
+                        server.WebSocketServices.Broadcast(t.Result);
+                    }
+                    catch { }
                 }
                 );
             }
