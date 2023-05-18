@@ -35,10 +35,12 @@ namespace BrowserClient
             this.InitializeComponent();
             if (IsMobile)
             {
-                Windows.UI.ViewManagement.StatusBar statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                Windows.UI.ViewManagement.StatusBar statusBar 
+                    = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
                 statusBar.HideAsync();
             }
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            ApplicationDataContainer localSettings 
+                = Windows.Storage.ApplicationData.Current.LocalSettings;
 
             if (localSettings.Values.ContainsKey("LastServerUrl"))
             {
@@ -61,7 +63,8 @@ namespace BrowserClient
             control.IsEnabled = true;
             control.IsTabStop = isTabStop;
         }
-        private void TextBox_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        private void TextBox_KeyDown(object sender, 
+            Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -75,8 +78,10 @@ namespace BrowserClient
         {
             get
             {
-                var qualifiers = Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().QualifierValues;
-                return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
+                var qualifiers = 
+                    Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().QualifierValues;
+                return (qualifiers.ContainsKey("DeviceFamily") 
+                    && qualifiers["DeviceFamily"] == "Mobile");
             }
         }
 
@@ -87,7 +92,7 @@ namespace BrowserClient
 
         private void Page_SizeChanged(object sender, Windows.UI.Xaml.SizeChangedEventArgs e)
         {
-           
+           //
         }
 
         private void Test_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
@@ -123,7 +128,7 @@ namespace BrowserClient
             {
                 test.Source = o;
             };
-            ds.StartRecive(endpoint);
+            ds.StartReceive(endpoint);
             ds.TextPacketRecived += (s, o) =>
             {
                 switch (o.PType)
@@ -179,7 +184,7 @@ namespace BrowserClient
 
         private void MainGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
+            //
         }
 
         private void Browser_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -288,7 +293,7 @@ namespace BrowserClient
                         ConnectPage.Visibility = Visibility.Collapsed;
                         DiscoveryPage.Visibility = Visibility.Collapsed;
                         NavbarGrid.Visibility = Visibility.Visible;
-                       // ds.StartRecive("ws://" + packet.ServerAddress + ":8081");
+                       // ds.StartReceive("ws://" + packet.ServerAddress + ":8081");
                         
                     });
                     break;

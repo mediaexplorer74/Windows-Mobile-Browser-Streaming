@@ -1,5 +1,24 @@
-# Windows-Mobile-Browser-Streaming
-"Run" chromium on your windows phone
+# Windows-Mobile-Browser-Streaming V2.0.3
+It's my fork of very special software to "run" chromium on your windows phone (clieent-server tech. used!)
+
+## Screenshots
+![Screenshot1](Images/shot1.png)
+![Screenshot2](Images/shot2.png)
+
+## Current Status
+- New version (or "iteration") with minimal improvements (some try..catch blocks added only!)
+- Ready Targets: W10M ARM (min. os. build 15063) / Win10 or 11 (UWP)
+- Real dedicated server used with real ip and 8081 port connection allowed
+
+## TODO
+- do somthing special (improve streaming?)
+- ...
+
+
+
+## Few words from the author (PrayK)
+
+"
 
 **Currently a proof of concept** inspired by [browservice](https://github.com/ttalvitie/browservice).
 
@@ -7,7 +26,7 @@ This was hacked together in a few days, much of it is hardcoded & the code is pr
 
 When it grows up it aims to be a usable modern browser for windows mobile devices that anyone can install on a PC (server) and have an up to date web browser on WP (client).
 
-<img src="https://user-images.githubusercontent.com/1968543/235461724-d328459b-881c-4540-a086-4824e0c3aa1f.JPEG" height="500"><img src="https://user-images.githubusercontent.com/1968543/235461704-9f9ded26-ac71-4f79-9641-31fd9460d9ea.jpg" height="500">
+
 
 ### How to try
 For now your phone and your server needs to be on the same network
@@ -56,3 +75,11 @@ For now your phone and your server needs to be on the same network
 * We need a real name for the project
 * Report issues you encounter on the GitHub page
 * I don't do much user-facing stuff, If you find this useful and have the time make guides/tutorials for the less tech-savy :) 
+
+"
+
+## ..
+As-is. No support. RnD only!
+
+## .
+[m][e] 2023

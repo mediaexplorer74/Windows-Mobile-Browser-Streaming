@@ -20,7 +20,7 @@ namespace BrowserClient
         public event EventHandler<string> JSONRecived;
         public event EventHandler<BitmapImage> FrameRecived;
         public event EventHandler<TextPacket> TextPacketRecived;
-        public async void StartRecive(string addr)
+        public async void StartReceive(string addr)
         {
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
@@ -29,46 +29,59 @@ namespace BrowserClient
 
             sock = new ClientWebSocket();
 
-            await sock.ConnectAsync(new Uri(addr), CancellationToken.None);
+            try
+            {
+                await sock.ConnectAsync(new Uri(addr), CancellationToken.None);
+            }
+            catch { }
 
             //2mb should be enough
             ArraySegment<byte> readbuffer = new ArraySegment<byte>(new byte[2000000]);
             
             while (sock.State == WebSocketState.Open)
             {
-                //  ArraySegment<byte> readbuffer = new ArraySegment<byte>(new byte[2000000]);
+                //  ArraySegment<byte> readbuffer
+                //      = new ArraySegment<byte>(new byte[2000000]);
                 // Array.Clear(readbuffer.Array, 0, 2000000-1);
                 Array.Clear(readbuffer.Array, 0, readbuffer.Array.Length);
 
-                var res = await sock.ReceiveAsync(readbuffer, CancellationToken.None);
+                WebSocketReceiveResult res = default;
 
-                switch (res.MessageType)
+                try
                 {
-                    case WebSocketMessageType.Binary:
-                        FrameRecived?.Invoke(this, ConvertToBitmapImage(readbuffer.Array).Result);
-                       
-                        break;
-                    case WebSocketMessageType.Close:
-
-                        break;
-                    case WebSocketMessageType.Text:
-                        //text packet
-                        try
-                        {
-                            TextPacketRecived?.Invoke(this, JsonConvert.DeserializeObject<TextPacket>(System.Text.Encoding.UTF8.GetString(readbuffer.Array)));
-                        }
-                        catch (Exception)
-                        {
-
-                           // throw;
-                        }
-                       
-                        break;
-                    default:
-                        break;
+                    res = await sock.ReceiveAsync(readbuffer, CancellationToken.None);
                 }
-            }
-        }
+                catch { }
+
+                if (res != null)
+                {
+                    switch (res.MessageType)
+                    {
+                        case WebSocketMessageType.Binary:
+                            FrameRecived?.Invoke(this, ConvertToBitmapImage(readbuffer.Array).Result);
+
+                            break;
+                        case WebSocketMessageType.Close:
+
+                            break;
+                        case WebSocketMessageType.Text:
+                            //text packet
+                            try
+                            {
+                                TextPacketRecived?.Invoke(this, JsonConvert.DeserializeObject<TextPacket>(System.Text.Encoding.UTF8.GetString(readbuffer.Array)));
+                            }
+                            catch (Exception)
+                            {
+                                // throw;
+                            }
+
+                            break;
+                        default:
+                            break;
+                    }//switch
+                }//if
+            }//while
+        }//void
 
         public async void Navigate(string s)
         {
@@ -78,7 +91,12 @@ namespace BrowserClient
             string PacketJSON = JsonConvert.SerializeObject(cp);
             var encoded = Encoding.UTF8.GetBytes(PacketJSON);
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
         }
 
         public async void NavigateForward()
@@ -92,7 +110,12 @@ namespace BrowserClient
             }));
 
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
         }
         public async void NavigateBack()
         {
@@ -102,7 +125,12 @@ namespace BrowserClient
             }));
 
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
         }
 
         public async void SendKey(Windows.UI.Xaml.Input.KeyRoutedEventArgs key)
@@ -119,7 +147,12 @@ namespace BrowserClient
             }));
 
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
         }
 
         public async void SizeChange(Windows.Foundation.Size newSize)
@@ -135,7 +168,12 @@ namespace BrowserClient
             string PacketJSON = JsonConvert.SerializeObject(cp);
             var encoded = Encoding.UTF8.GetBytes(PacketJSON);
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
         }
 
         public async void TouchDown(Point p, uint pointerId)
@@ -158,7 +196,12 @@ namespace BrowserClient
 
             var encoded = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(cp));
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
 
 
         }
@@ -181,9 +224,12 @@ namespace BrowserClient
 
             var encoded = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(cp));
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
 
-
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
         }
 
 
@@ -198,7 +244,13 @@ namespace BrowserClient
             }));
 
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true,
+                    CancellationToken.None);
+            }
+            catch { }
         }
         public async void TouchMove(Point p, uint pointerId)
         {
@@ -220,8 +272,12 @@ namespace BrowserClient
 
             var encoded = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(cp));
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
-            
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+            catch { }
         }
 
         public async void ACKRender()
@@ -237,7 +293,13 @@ namespace BrowserClient
 
             var encoded = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(cp));
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await sock.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            try
+            {
+                await sock.SendAsync(buffer, WebSocketMessageType.Text, true,
+                    CancellationToken.None);
+            }
+            catch { }
         }
 
         public async Task<BitmapImage> ConvertToBitmapImage(byte[] image)
