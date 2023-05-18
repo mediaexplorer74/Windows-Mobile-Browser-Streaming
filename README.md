@@ -1,5 +1,5 @@
 # Windows-Mobile-Browser-Streaming V2.0.3
-It's my fork of very special software to "run" chromium on your windows phone (clieent-server tech. used!)
+It's my fork of very special software to "run" Chromium on my windows phone (clieet-server tech. used!)
 
 ## Screenshots
 ![Screenshot1](Images/shot1.png)
@@ -78,8 +78,12 @@ For now your phone and your server needs to be on the same network
 
 "
 
-## ..
+## References
+- https://github.com/PreyK  :: The original Windows-Mobile-Browser-Streaming's C# Developer
+- https://github.com/PreyK/Windows-Mobile-Browser-Streaming  :: Windows-Mobile-Browser-Streaming, indeed :)
+
+## ::
 As-is. No support. RnD only!
 
-## .
-[m][e] 2023
+## :
+Media::Explorer 2023
