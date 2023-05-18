@@ -1,9 +1,12 @@
 # Windows-Mobile-Browser-Streaming V2.0.3
-It's my fork of very special software to "run" Chromium on my windows phone (clieet-server tech. used!)
+![Screenshot1](Images/chromium.png)
+
+It's my fork of very special [Client-Server software to "run" Chromium on my windows phone](https://github.com/PreyK/Windows-Mobile-Browser-Streaming) .
 
 ## Screenshots
 ![Screenshot1](Images/shot1.png)
 ![Screenshot2](Images/shot2.png)
+![Screenshot3](Images/shot3.png)
 
 ## Current Status
 - New version (or "iteration") with minimal improvements (some try..catch blocks added only!)
