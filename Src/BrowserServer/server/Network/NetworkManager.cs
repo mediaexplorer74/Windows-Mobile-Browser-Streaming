@@ -3,17 +3,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.IO;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using WebSocketSharp.Server;
+using WebSocketSharp;
+using CefSharp.Structs;
+using CefSharp;
+using System.Windows.Forms.VisualStyles;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
+using System.Data.SqlTypes;
+using System.IO.Compression;
 
-namespace BrowserServer
+namespace ServerDeploymentAssistant.src.Network
 {
+    /// <summary>
+    /// That class used for UDP discovery. No used in Lines Browser. Not tested.
+    /// </summary>
     public static class NetworkManager
     {
-        //UDP discovery
         static UdpClient receivingClient;
         static UdpClient sendingClient;
         static Thread udpReciving;
@@ -55,15 +67,11 @@ namespace BrowserServer
                 switch (udpPacket.PType)
                 {
                     case DiscoveryPacketType.AddressRequest:
-                         Console.WriteLine("request addr");
-                        // byte[] data = Encoding.ASCII.GetBytes("hallo");
-                        // sendingClient.Send(data, data.Length);
-
-
+                        Logger.CreateLog("[ACK] Client requested address for connect.");
                         var packet = new DiscoveryPacket
                         {
                             PType = DiscoveryPacketType.ACK,
-                            ServerAddress = GetLocalIPAddress()
+                            ServerAddress = Utils.GetLocalIPAddress()
                         };
                         var rawPacket = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(packet));
                         sendingClient.Send(rawPacket, rawPacket.Length);
@@ -76,29 +84,8 @@ namespace BrowserServer
                         break;
                 }
             }
-            catch (Exception){}
-            
+            catch (Exception) {}
         }
-        //UDP discovery
-
-        //helpers
-        public static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
-
-        public static bool IsUrl(string s)
-        {
-            return Regex.IsMatch(s, @"^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/\/=]*)$");
-        }
-        //helpers
     }
 }
+

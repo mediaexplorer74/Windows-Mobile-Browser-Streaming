@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BrowserClient
+namespace ServerDeploymentAssistant
 {
     public struct PointerPacket
     {
@@ -30,7 +30,12 @@ namespace BrowserClient
         NavigatedUrl,
         TextInputContent,
         TextInputSend,
-        TextInputCancel
+        TextInputCancel,
+        LoadingStateChanged,
+        OpenPages,
+        EditOpenTabTitle,
+        IsClientCanSendGoBackRequest,
+        IsClientCanSendGoForwardRequest,
     }
 
     public enum PacketType
@@ -45,7 +50,19 @@ namespace BrowserClient
         TextInputSend,
         NavigateForward,
         NavigateBack,
-        SendKey
+        SendKey,
+        RequestFullPageScreenshot,
+        ModeChange,
+        SetActivePage,
+        GetTabsOpen,
+        CloseTab,
+        RequestTabScreenshot,
+        OpenUrlInNewTab,
+        NewScreenShotRequest,
+        IsCanGoBack,
+        IsCanGoForward,
+        SendKeyCommand,
+        SendChar
     }
     public struct DiscoveryPacket
     {
@@ -56,5 +73,14 @@ namespace BrowserClient
     {
         AddressRequest,
         ACK
+    }
+    public struct ChangedPixel
+    {
+        public int X; 
+        public int Y; 
+        public byte R; 
+        public byte G; 
+        public byte B; 
+        public byte A; 
     }
 }

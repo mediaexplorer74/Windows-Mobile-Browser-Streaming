@@ -7,9 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BrowserServer
+namespace ServerDeploymentAssistant
 {
-    public static class KeyFinder
+    public struct KeyMapping
+    {
+        public byte VkCode;
+        public uint ScanCode;
+        public byte ShiftState;
+    }
+    public static class KeyHelper
     {
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         static extern short VkKeyScanEx(char ch, IntPtr dwhkl);
@@ -17,6 +23,14 @@ namespace BrowserServer
         static extern bool UnloadKeyboardLayout(IntPtr hkl);
         [DllImport("user32.dll")]
         static extern IntPtr LoadKeyboardLayout(string pwszKLID, uint Flags);
+        public const uint MAPVK_VK_TO_VSC = 0;
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint MapVirtualKeyEx(
+            uint uCode,
+            uint uMapType,
+            IntPtr dwhkl
+        );
         public class KeyboardPointer : IDisposable
         {
             private readonly IntPtr pointer;
@@ -82,6 +96,33 @@ namespace BrowserServer
                     }
             }
            // Console.Read();//Stop window closing
+        }
+
+        private const uint KLF_NOTELLSHELL = 0x00000080;
+
+        public static KeyMapping GetVirtualKey(char ch, string langCode = "en-US") 
+        {
+            var culture = CultureInfo.CreateSpecificCulture(langCode);
+            string layoutHex = $"0000{culture.LCID:X4}";
+            IntPtr hkl = LoadKeyboardLayout(layoutHex, KLF_NOTELLSHELL);
+            if (hkl == IntPtr.Zero)
+                throw new InvalidOperationException("[KEYFINDER] Key mapping error " + langCode);
+
+            short vkScan = VkKeyScanEx(ch, hkl);
+            if (vkScan == -1)
+                throw new InvalidOperationException($"[KEYFINDER] Symbol '{ch}' is not supported in mapping {langCode}");
+
+            byte vkCode = (byte)(vkScan & 0xFF);
+            byte shiftState = (byte)((vkScan >> 8) & 0xFF);
+
+            uint scanCode = MapVirtualKeyEx(vkCode, MAPVK_VK_TO_VSC, hkl);
+
+            return new KeyMapping
+            {
+                VkCode = vkCode,
+                ScanCode = scanCode,
+                ShiftState = shiftState
+            };
         }
     }
 }

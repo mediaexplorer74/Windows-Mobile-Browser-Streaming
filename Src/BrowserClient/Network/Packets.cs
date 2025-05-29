@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BrowserServer
+namespace LinesBrowser
 {
     public struct PointerPacket
     {
@@ -30,7 +30,12 @@ namespace BrowserServer
         NavigatedUrl,
         TextInputContent,
         TextInputSend,
-        TextInputCancel
+        TextInputCancel,
+        LoadingStateChanged,
+        OpenPages,
+        EditOpenTabTitle,
+        IsClientCanSendGoBackRequest,
+        IsClientCanSendGoForwardRequest,
     }
 
     public enum PacketType
@@ -45,7 +50,19 @@ namespace BrowserServer
         TextInputSend,
         NavigateForward,
         NavigateBack,
-        SendKey
+        SendKey,
+        RequestFullPageScreenshot,
+        ModeChange,
+        SetActivePage,
+        GetTabsOpen,
+        CloseTab,
+        RequestTabScreenshot,
+        OpenUrlInNewTab,
+        NewScreenShotRequest,
+        IsCanGoBack,
+        IsCanGoForward,
+        SendKeyCommand,
+        SendChar,
     }
     public struct DiscoveryPacket
     {
@@ -56,5 +73,14 @@ namespace BrowserServer
     {
         AddressRequest,
         ACK
+    }
+    public class KeyCharPacket
+    {
+        public PacketType PType { get; set; } = PacketType.SendChar;
+        public string JSONData { get; set; }
+        public bool Shift { get; set; }
+        public bool Ctrl { get; set; }
+        public bool Alt { get; set; }
+        public string Layout { get; set; }
     }
 }

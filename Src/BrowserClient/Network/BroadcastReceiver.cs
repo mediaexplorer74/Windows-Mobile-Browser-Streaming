@@ -13,6 +13,9 @@ using System.IO;
 using Windows.Networking;
 #endif
 
+/// <summary>
+/// What a hell this code is doing? I don't know, but... Maybe it used anywhere in the project.
+/// </summary>
 
 #if UNITY_EDITOR
 
