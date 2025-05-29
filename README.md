@@ -8,7 +8,7 @@ In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Sto
 ## Current Status 
 - Veeery quick/fast  https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser "code injection" into my *dev* branch for future experiments :)
 - OS Targets: W10M ARM (UWP, build >= 15063) & Windows 10 / 11 Desktop (x64, build >= 19041)
-- local ip and 8081 port used, remote connection allowed for firewall
+- Local ip and 8081 port used, remote connection must be allowed for firewall!
 
 ## Screenshot(s)
 ![BrowserServer](Images/sshot01.png)
