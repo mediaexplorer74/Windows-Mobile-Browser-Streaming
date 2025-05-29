@@ -13,6 +13,9 @@ In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Sto
 ## Screenshot(s)
 ![BrowserServer](Images/sshot01.png)
 ![BrowserServer](Images/sshot02.png)
+![BrowserClient](Images/sshot03.png)
+![BrowserClient](Images/sshot04.png)
+![BrowserClient](Images/sshot05.png)
 
 ### How to try
 For now your phone and your "server" (home pc) needs to be on the same network

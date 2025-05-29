@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using CefSharp.Enums;
 using ServerDeploymentAssistant.src.Network;
+using System.Diagnostics;
 
 namespace ServerDeploymentAssistant.src.Helpers
 {
@@ -88,15 +89,36 @@ namespace ServerDeploymentAssistant.src.Helpers
                 }
                 else
                 {
-                    browser.EvaluateScriptAsync(JavaScriptHelper.SetCursorInInputField);
-                    var response = browser.EvaluateScriptAsync(JavaScriptHelper.GetActiveElementText).ContinueWith(t =>
+                    try
                     {
+                        browser.EvaluateScriptAsync(JavaScriptHelper.SetCursorInInputField);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("browser.EvaluateScriptAsync(JavaScriptHelper.SetCursorInInputField) exception: " 
+                            + ex.Message);
+                    }
+
+                    try
+                    {
+                        /*Task response = browser.EvaluateScriptAsync(JavaScriptHelper.GetActiveElementText).ContinueWith(t =>
+                        {
+                            StateHelper.Instance.streamServer.SendPacket(JsonConvert.SerializeObject(new TextPacket
+                            {
+                                PType = TextPacketType.TextInputContent,
+                                text = (string)t.Result.Result
+                            }));
+                        });*/
                         StateHelper.Instance.streamServer.SendPacket(JsonConvert.SerializeObject(new TextPacket
                         {
                             PType = TextPacketType.TextInputContent,
-                            text = (string)t.Result.Result
+                            text = ""
                         }));
-                    });
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Browser.EvaluateScript exception: " + ex.Message);
+                    }
                 }
             }
         }
