@@ -51,7 +51,7 @@ For now your phone and your "server" (home pc) needs to be on the same network
 - [ ] Continuum support/verify
 
 ## My big errors
-- Afret app building, UWP x64 app don't want to activate on my PC when Istartd it udr the newsest VS 2022 Preview edition... Maybe, VS 2022 upgrade/downgrade needed...
+- After BrowserClent projectp building, UWP x64 app don't want to activate on my PC when I start it under the newest VS 2022 Preview edition... Maybe, VS 2022 upgrade/downgrade needed... idk :(
 
 ## How can you help
 * XAML improvements. If you are a seasoned UWP/XAML/Windows Phone developer feel free to suggest changes.
