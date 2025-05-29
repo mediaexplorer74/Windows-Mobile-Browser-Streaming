@@ -7,8 +7,8 @@
     <ProjectGuid>{C6CD76D3-6E69-473E-995B-D422467AD79E}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrowserClient</RootNamespace>
-    <AssemblyName>BrowserClient</AssemblyName>
+    <RootNamespace>LinesBrowser</RootNamespace>
+    <AssemblyName>LinesBrowser</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
@@ -24,7 +24,7 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <PackageCertificateThumbprint>210F541981A36BB951DB19725D9E5150282C9B83</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>708BDFF64824DF4CD6198FAD187E93B7B99202A9</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -71,7 +71,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
@@ -129,18 +129,48 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BroadcastReceiver.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Network\AudioStreamServer.cs" />
+    <Compile Include="Network\BroadcastReceiver.cs" />
+    <Compile Include="Helpers\ConnectionHelper.cs" />
+    <Compile Include="Pages\ConnectPage.xaml.cs">
+      <DependentUpon>ConnectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ConnectProgressPage.xaml.cs">
+      <DependentUpon>ConnectProgressPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ErrorsHelper.cs" />
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Packets.cs" />
+    <Compile Include="Network\Packets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebBrowserDataSource.cs" />
+    <Compile Include="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Elements\UTextBlock.xaml.cs">
+      <DependentUpon>UTextBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Network\WebBrowserDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="BrowserClient_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\ru-RU\ErrorCodes.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\ErrorCodes.resw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\ru-RU\Resources.resw">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </PRIResource>
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </PRIResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\LargeTile.scale-100.png" />
@@ -149,6 +179,9 @@
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\left-arrow.png" />
+    <Content Include="Assets\placeholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\right-arrow.png" />
     <Content Include="Assets\send.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
@@ -164,11 +197,6 @@
     <Content Include="Assets\Square150x150Logo.scale-125.png" />
     <Content Include="Assets\Square150x150Logo.scale-150.png" />
     <Content Include="Assets\Square150x150Logo.scale-400.png" />
-    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
-    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
-    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
-    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
-    <Content Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
     <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
     <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
@@ -191,7 +219,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Properties\Default.rd.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -204,14 +234,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\ConnectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ConnectProgressPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Elements\UTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.8</Version>
+      <Version>6.0.8</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
@@ -221,13 +267,8 @@
     <SDKReference Include="WindowsDesktop, Version=10.0.19041.0">
       <Name>Windows Desktop Extensions for the UWP</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.22000.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="BrowserClient_TemporaryKey.pfx" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

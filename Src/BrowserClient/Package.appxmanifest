@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"  xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" IgnorableNamespaces="uap mp uap3 iot uap2">
-  <Identity Name="ME.BrowserClientV2" Publisher="CN=Admin" Version="2.0.3.0" />
-  <mp:PhoneIdentity PhoneProductId="d26e352d-9581-4ae1-b5b0-097a363fdd64" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
+  <Identity Name="ME.LinesBrowserV1" Publisher="CN=Admin" Version="1.0.51.0" />
+  <mp:PhoneIdentity PhoneProductId="d26e352d-9581-4ae1-b5b0-09fa3635dd65" PhonePublisherId="00060041-0025-3500-0031-000550008708" />
   <Properties>
-    <DisplayName>BrowserClient</DisplayName>
-    <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
+    <DisplayName>LinesBrowser v1.0.51</DisplayName>
+    <PublisherDisplayName>Admin</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -14,15 +14,20 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="BrowserClient.App">
-      <uap:VisualElements DisplayName="BrowserClient" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="BrowserClient" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LBrowser.App">
+      <uap:VisualElements DisplayName="LinesBrowser 1.0.51" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ms-resource:AppDescription" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="ms-resource:AppShortName" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>      
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/>
           <uap:Rotation Preference="portrait"/>
-          <uap:Rotation Preference="landscapeFlipped"/></uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscapeFlipped"/>
+       </uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
@@ -35,9 +40,7 @@
     <uap:Capability Name="picturesLibrary"/>
     <uap:Capability Name="videosLibrary"/>
     <uap:Capability Name="musicLibrary"/>
-    <iot:Capability Name="lowLevelDevices"/>
     <uap:Capability Name="sharedUserCertificates"/>
-    <uap2:Capability Name="spatialPerception"/>
     <DeviceCapability Name="location"/>
   </Capabilities>
 </Package>

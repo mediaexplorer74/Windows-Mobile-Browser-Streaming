@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,14 +15,18 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Globalization;
+using Windows.Storage;
 
-namespace BrowserClient
+namespace LinesBrowser
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application
     {
+        private static ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+        Frame rootFrame = Window.Current.Content as Frame;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -39,7 +44,20 @@ namespace BrowserClient
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(200, 200));
+
+            string savedLang = localSettings.Values["AppLanguage"] as string;
+            if (!string.IsNullOrEmpty(savedLang))
+            {
+                ApplicationLanguages.PrimaryLanguageOverride = savedLang;
+            }
+            else
+            {
+
+            }
+            
+
+            ConnectionHelper.Instance.OnDisconnected += ConnectionHelper_OnDisconnected;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -66,9 +84,27 @@ namespace BrowserClient
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    if (localSettings.Values["AutoConnect"] is bool autoConnect && autoConnect)
+                    {
+                        string serverAddress = (string)localSettings.Values["serverAddress"];
+                        bool? enableAudioStream = (bool?)localSettings.Values["EnableAudioStream"];
+                        string audioServerAddress = (string)localSettings.Values["audioServerAddress"];
+
+                        if (enableAudioStream == null || (bool)!enableAudioStream)
+                            audioServerAddress = null;
+
+                        if (serverAddress==null || serverAddress == String.Empty)
+                            rootFrame.Navigate(typeof(ConnectPage), e.Arguments);
+                        else
+                            rootFrame.Navigate(typeof(ConnectProgressPage), Tuple.Create(ConnectProgressPage.State.Basic, serverAddress, audioServerAddress, ""));
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(ConnectPage), e.Arguments);
+                    }
                 }
                 // Ensure the current window is active
+                ApplicationView.GetForCurrentView().SetDesiredBoundsMode(ApplicationViewBoundsMode.UseVisible);
                 Window.Current.Activate();
             }
         }
@@ -95,6 +131,26 @@ namespace BrowserClient
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void ConnectionHelper_OnDisconnected(object sender, string errorCode)
+        {
+            string serverAddress = (string)localSettings.Values["serverAddress"];
+            bool? enableAudioStream = (bool?)localSettings.Values["EnableAudioStream"];
+            string audioServerAddress = (string)localSettings.Values["audioServerAddress"];
+
+            if (enableAudioStream == null || (bool)!enableAudioStream)
+                audioServerAddress = null;
+
+            rootFrame.Navigate(
+                typeof(ConnectProgressPage), 
+                Tuple.Create(
+                    ConnectProgressPage.State.DisconnectedWithError, 
+                    serverAddress, 
+                    audioServerAddress,
+                    errorCode
+                    )
+                );
         }
     }
 }
