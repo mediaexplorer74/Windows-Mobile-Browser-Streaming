@@ -1,7 +1,8 @@
-# Windows-Mobile-Browser-Streaming v1.0.51.0 - dev branch
+# Windows-Mobile-Browser-Streaming v1.0.52.0 - dev branch
 ![Logo](Images/logo.png)
 
-It's my fork of very special [Client-Server software to "run" Chromium on my windows phone](https://github.com/PreyK/Windows-Mobile-Browser-Streaming). In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser) and plannedto merge it ...  
+It's my fork of very special [Client-Server software to "run" Chromium on my windows phone](https://github.com/PreyK/Windows-Mobile-Browser-Streaming). WMBS, in short. :)
+ In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser) and plannedto merge it ...  
 
 ## Current Status
 - Veeery quick/fast  https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser "code injection" into my *dev* branch for future experiment(ation)s :)
@@ -10,6 +11,7 @@ It's my fork of very special [Client-Server software to "run" Chromium on my win
 
 ## Screenshot(s)
 ![BrowserServer](Images/sshot01.png)
+![BrowserServer](Images/sshot02.png)
 
 ### How to try
 For now your phone and your "server" (home pc) needs to be on the same network
@@ -29,6 +31,7 @@ For now your phone and your "server" (home pc) needs to be on the same network
 - [X] Auto scaling renderview based on screen resolution/rotation/UWP viewport
 - [X] Text input (basic, still WIP)
 - [x] Auto save the last server address
+- [+-] Audio playback forwarding (needs more test&fix)
 
 
 ## What's needed
@@ -37,7 +40,6 @@ For now your phone and your "server" (home pc) needs to be on the same network
 - [ ] Faster rendering (GPU?)
 - [ ] Faster & smarter transport (chunking?, rawbytes?, SYN/ACK)
 - [ ] Configurable streaming quality (ondemand rendering?)
-- [ ] Audio playback forwarding
 - [ ] File uploads
 - [ ] File downloads
 - [ ] Camera & microphone
@@ -50,8 +52,6 @@ For now your phone and your "server" (home pc) needs to be on the same network
 - [ ] General browser stuff
 - [ ] Continuum support/verify
 
-## My big errors
-- After BrowserClent projectp building, UWP x64 app don't want to activate on my PC when I start it under the newest VS 2022 Preview edition... Maybe, VS 2022 upgrade/downgrade needed... idk :(
 
 ## How can you help
 * XAML improvements. If you are a seasoned UWP/XAML/Windows Phone developer feel free to suggest changes.
@@ -62,7 +62,7 @@ For now your phone and your "server" (home pc) needs to be on the same network
 
 
 ## References
-- https://www.reddit.com/r/windowsphone/comments/1kxqu4t/running_modern_websites_on_my_lumia/ Running Modern Sites theme on r/windowsphone reddit
+- https://www.reddit.com/r/windowsphone/comments/1kxqu4t/running_modern_websites_on_my_lumia/ Running Modern Sites theme on r/windowsphone reddit (May, 28 2025)
 - https://github.com/PreyK  :: The original Windows-Mobile-Browser-Streaming's C# Developer
 - https://github.com/PreyK/Windows-Mobile-Browser-Streaming  :: Windows-Mobile-Browser-Streaming, indeed :)
 - https://github.com/Storik4pro/LBrowser LinesBrowser, analog of BrowserClient
