@@ -2,7 +2,8 @@
 ![Logo](Images/logo.png)
 
 It's my fork of very special [Client-Server software to "run" Chromium on my windows phone](https://github.com/PreyK/Windows-Mobile-Browser-Streaming). WMBS, in short. :)
- In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser) and plannedto merge it ...  
+ 
+In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser) and plannedto merge it ...  
 
 ## Current Status
 - Veeery quick/fast  https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser "code injection" into my *dev* branch for future experiment(ation)s :)
@@ -15,7 +16,7 @@ It's my fork of very special [Client-Server software to "run" Chromium on my win
 
 ### How to try
 For now your phone and your "server" (home pc) needs to be on the same network
-1. Use VS 2022 to open WMBS solution and to build (assemble) BrowserClient and BrowserServer projects.  
+1. Use VS 2022 to open WMBS solution and to build (assemble) BrowserClient and BrowserServer projects. Manually deploy BrowserClient app to your "windowsphone". 
 2. Run BrowserServer (the server app) on your PC
 3. Open BrowserClient (the client app) on your phone, enter the IP of the server (your PC's local IP in `ws://localip:8081` format) and click connect
 4. Navigate to a page or search using google
