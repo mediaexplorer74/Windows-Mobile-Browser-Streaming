@@ -1,4 +1,4 @@
-# Windows-Mobile-Browser-Streaming v1.0.53.0 - de branch
+# Windows-Mobile-Browser-Streaming v1.0.53.0 - dev branch
 ![Logo](Images/logo.png)
 
 It's my fork of very special [Client-Server software to "run" Chromium on my windows phone](https://github.com/PreyK/Windows-Mobile-Browser-Streaming). WMBS, in short. :)
@@ -11,7 +11,8 @@ In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Sto
 - local ip and 8081 port used, remote connection must be allowed for firewall!
 
 ## Screenshot(s)
-![BrowserServer](Images/sshot01.png)
+![W11Lite](Images/sshot01.png)
+![W10M](Images/sshot02.png)
 
 ## My 2 cents
 - Client: WindowsPhone hardware back button handling added
