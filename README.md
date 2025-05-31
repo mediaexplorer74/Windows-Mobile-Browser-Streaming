@@ -1,4 +1,4 @@
-# Windows-Mobile-Browser-Streaming v1.0.52.0 - dev branch
+# Windows-Mobile-Browser-Streaming v1.0.53.0 - de branch
 ![Logo](Images/logo.png)
 
 It's my fork of very special [Client-Server software to "run" Chromium on my windows phone](https://github.com/PreyK/Windows-Mobile-Browser-Streaming). WMBS, in short. :)
@@ -6,16 +6,16 @@ It's my fork of very special [Client-Server software to "run" Chromium on my win
 In may 2025 I detected another WMBS fork (2 repos https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser) and merged it with my WMBS.  
 
 ## Current Status 
-- Veeery quick/fast  https://https://github.com/Storik4pro/Server-Deployment-Assistant & https://github.com/Storik4pro/LBrowser "code injection" into my *dev* branch for future experiments :)
+- Veeery quick/fast Server Deployment Assistant (SDA) & Lines Browser (LBrowser) "code injection" into my Windows-Mobile-Browser-Streaming (WMBS) solution for future experiments :)
 - OS Targets: W10M ARM (UWP, build >= 15063) & Windows 10 / 11 Desktop (x64, build >= 19041)
-- Local ip and 8081 port used, remote connection must be allowed for firewall!
+- local ip and 8081 port used, remote connection must be allowed for firewall!
 
 ## Screenshot(s)
 ![BrowserServer](Images/sshot01.png)
-![BrowserClient](Images/sshot02.png)
-![BrowserClient](Images/sshot03.png)
-![BrowserClient](Images/sshot04.png)
 
+## My 2 cents
+- Client: WindowsPhone hardware back button handling added
+- Server: settings.xml -- audio sampling rate decreased from 16000 to 8000, and data zipping disabled for more active data transferring :) 
 
 ### How to try
 For now your phone and your "server" (home pc) needs to be on the same network

@@ -48,22 +48,30 @@
                                                             </VisualState>
                                                             <VisualState x:Name="Pressed">
                                                                 <Storyboard>
-                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonLayoutGrid">
-                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAccentBrush}"/>
+                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" 
+                                                                                                   Storyboard.TargetName="ButtonLayoutGrid">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" 
+                                                                                                Value="{ThemeResource SystemControlHighlightAccentBrush}"/>
                                                                     </ObjectAnimationUsingKeyFrames>
-                                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="GlyphElement">
-                                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}"/>
+                                                                    <ObjectAnimationUsingKeyFrames 
+                                                                        Storyboard.TargetProperty="Foreground"
+                                                                        Storyboard.TargetName="GlyphElement">
+                                                                        <DiscreteObjectKeyFrame KeyTime="0" 
+                                                                                                Value="{ThemeResource SystemControlHighlightAltChromeWhiteBrush}"/>
                                                                     </ObjectAnimationUsingKeyFrames>
                                                                 </Storyboard>
                                                             </VisualState>
                                                             <VisualState x:Name="Disabled">
                                                                 <Storyboard>
-                                                                    <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ButtonLayoutGrid"/>
+                                                                    <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="Opacity" 
+                                                                                     Storyboard.TargetName="ButtonLayoutGrid"/>
                                                                 </Storyboard>
                                                             </VisualState>
                                                         </VisualStateGroup>
                                                     </VisualStateManager.VisualStateGroups>
-                                                    <TextBlock x:Name="GlyphElement" AutomationProperties.AccessibilityView="Raw" Foreground="{ThemeResource SystemControlForegroundChromeBlackMediumBrush}" FontStyle="Normal" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" HorizontalAlignment="Center" Text="&#xE10A;" VerticalAlignment="Center"/>
+                                                    <TextBlock x:Name="GlyphElement" AutomationProperties.AccessibilityView="Raw" 
+                                                               Foreground="{ThemeResource SystemControlForegroundChromeBlackMediumBrush}" 
+                                                               FontStyle="Normal" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" HorizontalAlignment="Center" Text="&#xE10A;" VerticalAlignment="Center"/>
                                                 </Grid>
                                             </ControlTemplate>
                                         </Setter.Value>
@@ -380,7 +388,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Rectangle Grid.Column="0" Fill="{ThemeResource SystemControlBackgroundChromeMediumBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50"/>
+                    <Rectangle Grid.Column="0" Fill="{ThemeResource SystemControlBackgroundChromeMediumBrush}" 
+                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50"/>
                     <Grid Grid.Column="0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -397,7 +406,8 @@
                                 Background="Transparent" ToolTipService.ToolTip="View pages">
                             <FontIcon Glyph="&#xE7C4;" />
                         </Button>
-                        <Rectangle Grid.Column="2" Fill="{ThemeResource AppBarSeparatorForegroundThemeBrush}" Width="2" Height="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <Rectangle Grid.Column="2" Fill="{ThemeResource AppBarSeparatorForegroundThemeBrush}" Width="2" Height="20" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         <Button x:Name="ConnectionPreviewButton" Grid.Column="3" Height="50" Background="Transparent" Visibility="Collapsed">
                             <Button.Content>
                                 <FontIcon x:Name="ConnectionStatusFontIcon" Glyph="&#xE72E;" FontSize="15"/>
@@ -414,7 +424,8 @@
                                 </TextBlock>
                             </Border>
                         </ScrollViewer>
-                        <Rectangle Grid.Column="5" Fill="{ThemeResource AppBarSeparatorForegroundThemeBrush}" Width="2" Height="20" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <Rectangle Grid.Column="5" Fill="{ThemeResource AppBarSeparatorForegroundThemeBrush}" Width="2" Height="20" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Right"/>
                         <Button x:Uid="DisplayMore" Name="More" Width="50" Grid.Column="6" HorizontalAlignment="Stretch" 
                             Margin="0,0,0,0" VerticalAlignment="Stretch" Click="More_Click"
                             Background="Transparent" ToolTipService.ToolTip="Display more settings">
@@ -453,11 +464,14 @@
         <StackPanel Name="ConnectPage" Visibility="Visible" VerticalAlignment="Center">
             <Button Name="connectBtn" Content="Connect" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="Button_Click"/>
             <Button Name="discoverBtn" Content="Discover" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="DiscoverBtn_Click"/>
-            <TextBox Name="serverAddress" HorizontalAlignment="Stretch" Margin="50,0,50,0" Text="ws://server:8081" VerticalAlignment="Center" IsTextPredictionEnabled="False" InputScope="Url" PlaceholderText="ws://server:8081"/>
-            <TextBox Name="audioAddress" HorizontalAlignment="Stretch" Margin="50,0,50,0" Text="ws://server:8082" VerticalAlignment="Center" IsTextPredictionEnabled="False" InputScope="Url" PlaceholderText="ws://server:8082"/>
+            <TextBox Name="serverAddress" HorizontalAlignment="Stretch" Margin="50,0,50,0" Text="ws://server:8081" VerticalAlignment="Center" 
+                     IsTextPredictionEnabled="False" InputScope="Url" PlaceholderText="ws://server:8081"/>
+            <TextBox Name="audioAddress" HorizontalAlignment="Stretch" Margin="50,0,50,0" Text="ws://server:8082" VerticalAlignment="Center" 
+                     IsTextPredictionEnabled="False" InputScope="Url" PlaceholderText="ws://server:8082"/>
         </StackPanel>
         <Grid Name="DiscoveryPage" Visibility="Collapsed">
-            <Rectangle Name="dicoverRect" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Fill="{ThemeResource SystemControlForegroundAccentBrush}"/>
+            <Rectangle Name="dicoverRect" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" 
+                       Fill="{ThemeResource SystemControlForegroundAccentBrush}"/>
             <TextBlock HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Text="discovering, please wait.." />
 
         </Grid>

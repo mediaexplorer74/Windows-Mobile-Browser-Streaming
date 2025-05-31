@@ -1,32 +1,34 @@
-﻿using System;
-using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.UI.Xaml.Controls;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.Storage.Streams;
-using Windows.UI.ViewManagement;
-using System.Diagnostics;
-using Windows.UI.Xaml;
-using Windows.Graphics.Display;
-using Windows.Foundation;
-using Windows.UI.Input;
-using System.Text;
-using System.Net.Sockets;
-using System.Threading;
-using System.Net;
-using LinesBrowser;
+﻿using LinesBrowser;
 using Newtonsoft.Json;
-using Windows.Networking.Sockets;
-using Windows.Storage;
-using Windows.UI.Xaml.Media.Animation;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Core;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Foundation.Metadata;
+using Windows.Graphics.Display;
+using Windows.Networking.Sockets;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.System.Display;
+using Windows.UI.Core;
+using Windows.UI.Input;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Web.UI.Interop;
 
 namespace LinesBrowser
 {
@@ -58,8 +60,8 @@ namespace LinesBrowser
             this.InitializeComponent();
             if (IsMobile)
             {
-                //Windows.UI.ViewManagement.StatusBar statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                //_ = statusBar?.HideAsync();
+                Windows.UI.ViewManagement.StatusBar statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                _ = statusBar?.HideAsync();
             }
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             ApplicationView.GetForCurrentView().VisibleBoundsChanged += OnVisibleBoundsChanged;
@@ -74,7 +76,8 @@ namespace LinesBrowser
             {
                 Debug.WriteLine("No known server");
             }
-            var inputPane = InputPane.GetForCurrentView();
+
+            InputPane inputPane = InputPane.GetForCurrentView();
             inputPane.Showing += InputPane_Showing;
             inputPane.Hiding += InputPane_Hiding;
             EntryNavBar.Width = Window.Current.Bounds.Width;
@@ -91,25 +94,40 @@ namespace LinesBrowser
             SetupTabWidth();
             ConnectHandlers();
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility
+                = AppViewBackButtonVisibility.Visible;
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, e) =>
+            {
+                if (isCanGoBack)
+                {
+                    webBrowserDataSource.NavigateBack();
+                    TogglePageLoadingMode(true);
+                    e.Handled = true;
+                }
+                e.Handled = true;
+            };
+
+            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+            {
+                Windows.Phone.UI.Input.HardwareButtons.BackPressed += (s, e) => 
+                {
+                    if (isCanGoBack)
+                    {
+                        webBrowserDataSource.NavigateBack();
+                        TogglePageLoadingMode(true);
+                        e.Handled = true;
+                    }
+                    e.Handled = true;
+                };
+            }
+
 
             DisplayRequest displayRequest = new DisplayRequest();
             displayRequest.RequestActive();
-        }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (sender != this)
-                return;
-            if (isCanGoBack)
-            {
-                webBrowserDataSource.NavigateBack();
-                TogglePageLoadingMode(true);
-                e.Handled = true;
-            }
-            e.Handled = true;
-        }
-
+        }        
+     
+        
         private void OnVisibleBoundsChanged(ApplicationView sender, object args)
         {
             _ = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, UpdateNavbarPosition);
@@ -428,6 +446,7 @@ namespace LinesBrowser
 
             audioStreamerClient = ConnectionHelper.Instance.audioStreamerClient;
         }
+
         private void WebsiteTextBox_KeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
             // webBrowserDataSource.SendKey(e);
